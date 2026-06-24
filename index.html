@@ -111,6 +111,8 @@
   .modal-close:hover{ background:var(--glass-h); transform:rotate(90deg); }
   .modal-frame{ position:relative; aspect-ratio:16/9; background:#000; border-radius:16px; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,.6); border:1px solid var(--line); }
   .modal-frame iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .modal-desc{ display:none; margin-top:14px; color:var(--ink); font-size:14px; line-height:1.6; background:var(--glass); border:1px solid var(--line); border-radius:12px; padding:14px 18px; max-height:32vh; overflow-y:auto; }
+  .modal-desc.show{ display:block; }
 </style>
 </head>
 <body>
@@ -220,6 +222,7 @@
   <div class="modal-box">
     <div class="modal-bar"><h4 id="modal-title"></h4><button class="modal-close" id="modal-close" aria-label="Cerrar">×</button></div>
     <div class="modal-frame"><iframe id="modal-iframe" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+    <p class="modal-desc" id="modal-desc"></p>
   </div>
 </div>
 
@@ -227,11 +230,11 @@
 <script>
   const COURSES = {
     "grid-avatares":[
-      {tag:"🟢 Vol. 1 · Fundamentos",t:"Tu primer avatar con IA",k:"v",id:"QdU0rXEUjrE"},
-      {tag:"🟡 Vol. 2 · UGC",t:"UGC que convierte: scripts y producción",k:"v",id:"HyeNHtYSgl4"},
-      {tag:"🟡 Vol. 3 · Image Ads",t:"Anuncios en imagen con IA (+10 formatos)",k:"v",id:"EQMz9sqnDHg"},
-      {tag:"🔴 Vol. 4 · Avanzado",star:true,t:"UGC avanzado, Podcast y Dualcast",k:"v",id:"V1i-nq4JQL8"},
-      {tag:"🔴 Vol. 5 · Animado",t:"Formato animado paso a paso",k:"v",id:"NdyWh18tUnw"}
+      {tag:"🟢 Vol. 1 · Fundamentos",t:"Tu primer avatar con IA",k:"v",id:"QdU0rXEUjrE",d:"Setup de herramientas, recursos base y los fundamentos para crear tu primer avatar hablante."},
+      {tag:"🟡 Vol. 2 · UGC",t:"UGC que convierte: scripts y producción",k:"v",id:"HyeNHtYSgl4",d:"Cómo producir UGC que vende: referencia visual, guiones en 3 formatos y selección de música."},
+      {tag:"🟡 Vol. 3 · Image Ads",t:"Anuncios en imagen con IA (+10 formatos)",k:"v",id:"EQMz9sqnDHg",d:"Crea anuncios en imagen desde cero: analiza el producto (público, pain points, ángulos) y genera +10 formatos de image ads: comparativa, fake-news, testimonial, problema-solución, before/after, advertorial, estilo Reddit, WhatsApp y más."},
+      {tag:"🔴 Vol. 4 · Avanzado",star:true,t:"UGC avanzado, Podcast y Dualcast",k:"v",id:"V1i-nq4JQL8",d:"Salto de calidad con un modelo de video nuevo más realista y de bajo coste. UGC y Podcast renovados, y estrenamos el formato Dualcast: dos personas a la vez en el mismo plano, interactuando."},
+      {tag:"🔴 Vol. 5 · Animado",t:"Formato animado paso a paso",k:"v",id:"NdyWh18tUnw",d:"Cómo crear contenido en formato animado paso a paso, desde la planificación hasta el render final."}
     ],
     "grid-n8n":[
       {tag:"🟢 Básico · +1h",t:"Curso N8N GRATUITO para Principiantes 2026 — Agentes de IA",k:"v",id:"Xbk6U5jhdkQ"},
@@ -294,9 +297,11 @@
   });
 
   // Modal
-  const modal=document.getElementById("modal"), frame=document.getElementById("modal-iframe"), mt=document.getElementById("modal-title");
-  function openModal(c){ mt.textContent=c.t; frame.src=embed(c); modal.classList.add("open"); modal.setAttribute("aria-hidden","false"); document.body.style.overflow="hidden"; }
-  function closeModal(){ modal.classList.remove("open"); modal.setAttribute("aria-hidden","true"); frame.src=""; document.body.style.overflow=""; }
+  const modal=document.getElementById("modal"), frame=document.getElementById("modal-iframe"), mt=document.getElementById("modal-title"), md=document.getElementById("modal-desc");
+  function openModal(c){ mt.textContent=c.t; frame.src=embed(c);
+    if(c.d){ md.textContent=c.d; md.classList.add("show"); } else { md.textContent=""; md.classList.remove("show"); }
+    modal.classList.add("open"); modal.setAttribute("aria-hidden","false"); document.body.style.overflow="hidden"; }
+  function closeModal(){ modal.classList.remove("open"); modal.setAttribute("aria-hidden","true"); frame.src=""; md.textContent=""; md.classList.remove("show"); document.body.style.overflow=""; }
   document.getElementById("modal-close").addEventListener("click",closeModal);
   modal.addEventListener("click",e=>{ if(e.target===modal) closeModal(); });
   document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeModal(); });
