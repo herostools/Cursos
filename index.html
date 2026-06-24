@@ -3,16 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Herostools · Centro de Formación</title>
+<title>Emprendimiento Digital · Centro de Formación</title>
+<link rel="icon" type="image/jpeg" href="logo.jpg">
+<meta name="theme-color" content="#0f2a4d">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#060814; --bg2:#0a0f1f;
+    --bg:#06101f; --bg2:#0a1a30;
     --ink:#eaeefb; --muted:#8a93a8; --line:rgba(255,255,255,.09);
     --glass:rgba(255,255,255,.035); --glass-h:rgba(255,255,255,.06);
-    --acc:#6d6bff; --acc2:#a855f7; --cyan:#22d3ee;
+    --acc:#19b3c7; --acc2:#2f80c9; --cyan:#34d3e6; --orange:#ef9140; --navy:#0f2a4d;
     --radius:18px;
   }
   *{ box-sizing:border-box; margin:0; padding:0; }
@@ -23,8 +25,8 @@
 
   /* fondo aurora global */
   .aurora{ position:fixed; inset:0; z-index:-2; background:
-      radial-gradient(60vw 60vw at 75% -5%, rgba(109,107,255,.22), transparent 60%),
-      radial-gradient(50vw 50vw at 10% 10%, rgba(168,85,247,.16), transparent 55%),
+      radial-gradient(60vw 60vw at 75% -5%, rgba(25,179,199,.22), transparent 60%),
+      radial-gradient(50vw 50vw at 10% 10%, rgba(47,128,201,.16), transparent 55%),
       radial-gradient(45vw 45vw at 90% 80%, rgba(34,211,238,.10), transparent 60%),
       linear-gradient(180deg,var(--bg),var(--bg2)); }
   .grain{ position:fixed; inset:0; z-index:-1; opacity:.035; pointer-events:none;
@@ -32,9 +34,10 @@
 
   /* NAV */
   nav{ position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between;
-    padding:14px 26px; backdrop-filter:blur(14px); background:rgba(6,8,20,.55); border-bottom:1px solid var(--line); }
+    padding:14px 26px; backdrop-filter:blur(14px); background:rgba(6,16,31,.55); border-bottom:1px solid var(--line); }
   nav .brand{ font-weight:700; font-family:"Space Grotesk"; letter-spacing:.5px; display:flex; align-items:center; gap:8px; }
   nav .brand .dot{ width:10px; height:10px; border-radius:50%; background:linear-gradient(135deg,var(--acc),var(--acc2)); box-shadow:0 0 16px var(--acc); }
+  nav .brand img{ width:32px; height:32px; border-radius:9px; object-fit:cover; box-shadow:0 2px 10px rgba(0,0,0,.4); }
   nav .links{ display:flex; gap:6px; }
   nav .links a{ font-size:13.5px; color:var(--muted); padding:7px 13px; border-radius:10px; transition:.18s; }
   nav .links a:hover{ color:var(--ink); background:var(--glass); }
@@ -44,6 +47,8 @@
   .hero{ position:relative; min-height:86vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:60px 24px 80px; }
   #bg3d{ position:absolute; inset:0; width:100%; height:100%; z-index:0; }
   .hero .inner{ position:relative; z-index:2; max-width:860px; }
+  .hero-logo{ width:128px; height:128px; border-radius:28px; object-fit:cover; display:block; margin:0 auto 24px; box-shadow:0 20px 55px rgba(0,0,0,.55), 0 0 0 1px var(--line); }
+  @media(max-width:560px){ .hero-logo{ width:104px; height:104px; border-radius:24px; } }
   .badge{ display:inline-flex; align-items:center; gap:8px; font-size:12.5px; color:var(--muted); border:1px solid var(--line); background:var(--glass); padding:7px 15px; border-radius:30px; backdrop-filter:blur(8px); margin-bottom:26px; }
   .badge .live{ width:7px; height:7px; border-radius:50%; background:var(--cyan); box-shadow:0 0 10px var(--cyan); animation:pulse 2s infinite; }
   @keyframes pulse{ 0%,100%{ opacity:1 } 50%{ opacity:.35 } }
@@ -67,24 +72,24 @@
 
   section{ padding:46px 0 6px; }
   .sec-head{ display:flex; align-items:center; gap:14px; margin-bottom:4px; }
-  .sec-head .num{ width:40px; height:40px; border-radius:12px; display:grid; place-items:center; font-family:"Space Grotesk"; font-weight:700; font-size:17px; color:#fff; background:linear-gradient(135deg,var(--acc),var(--acc2)); box-shadow:0 6px 22px rgba(109,107,255,.35); flex:0 0 auto; }
+  .sec-head .num{ width:40px; height:40px; border-radius:12px; display:grid; place-items:center; font-family:"Space Grotesk"; font-weight:700; font-size:17px; color:#fff; background:linear-gradient(135deg,var(--acc),var(--acc2)); box-shadow:0 6px 22px rgba(25,179,199,.35); flex:0 0 auto; }
   .sec-head h2{ font-size:clamp(20px,2.6vw,26px); font-weight:600; }
   .sec-sub{ color:var(--muted); margin:4px 0 22px 54px; font-size:14px; }
   @media(max-width:560px){ .sec-sub{ margin-left:0; } }
 
   .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(265px,1fr)); gap:18px; perspective:1200px; }
   .card{ position:relative; background:var(--glass); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; cursor:pointer; text-align:left; font:inherit; color:inherit; width:100%; display:flex; flex-direction:column; backdrop-filter:blur(10px); transition:border-color .25s, box-shadow .25s, background .25s; transform-style:preserve-3d; will-change:transform; }
-  .card:hover{ border-color:rgba(109,107,255,.55); background:var(--glass-h); box-shadow:0 20px 50px rgba(0,0,0,.45), 0 0 0 1px rgba(109,107,255,.2); }
+  .card:hover{ border-color:rgba(25,179,199,.55); background:var(--glass-h); box-shadow:0 20px 50px rgba(0,0,0,.45), 0 0 0 1px rgba(25,179,199,.2); }
   .thumb{ position:relative; aspect-ratio:16/9; background:#0a1020 center/cover no-repeat; transform:translateZ(30px); }
-  .thumb::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(6,8,20,0) 35%,rgba(6,8,20,.7)); }
-  .thumb.brand{ display:grid; place-items:center; background:linear-gradient(135deg,rgba(109,107,255,.25),rgba(168,85,247,.18)); }
+  .thumb::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(6,16,31,0) 35%,rgba(6,16,31,.7)); }
+  .thumb.brand{ display:grid; place-items:center; background:linear-gradient(135deg,rgba(25,179,199,.25),rgba(47,128,201,.18)); }
   .thumb.brand span{ font-family:"Space Grotesk"; font-weight:700; font-size:20px; color:#fff; z-index:1; opacity:.92; }
-  .pbtn{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:52px; height:52px; border-radius:50%; background:rgba(109,107,255,.92); display:grid; place-items:center; z-index:2; box-shadow:0 8px 24px rgba(109,107,255,.5); transition:.2s; }
+  .pbtn{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:52px; height:52px; border-radius:50%; background:rgba(25,179,199,.92); display:grid; place-items:center; z-index:2; box-shadow:0 8px 24px rgba(25,179,199,.5); transition:.2s; }
   .card:hover .pbtn{ transform:translate(-50%,-50%) scale(1.14); }
   .pbtn svg{ width:21px; height:21px; fill:#fff; margin-left:3px; }
   .body{ padding:15px 17px 17px; display:flex; flex-direction:column; gap:9px; flex:1; transform:translateZ(20px); }
-  .tag{ align-self:flex-start; font-size:11px; font-weight:600; letter-spacing:.3px; padding:5px 11px; border-radius:20px; background:rgba(109,107,255,.14); color:#b9b8ff; border:1px solid rgba(109,107,255,.25); }
-  .tag.star{ background:rgba(34,211,238,.13); color:#9beaf5; border-color:rgba(34,211,238,.3); }
+  .tag{ align-self:flex-start; font-size:11px; font-weight:600; letter-spacing:.3px; padding:5px 11px; border-radius:20px; background:rgba(25,179,199,.14); color:#b9b8ff; border:1px solid rgba(25,179,199,.25); }
+  .tag.star{ background:rgba(239,145,64,.14); color:#f7b984; border-color:rgba(239,145,64,.32); }
   .card h3{ font-size:14.5px; line-height:1.4; font-weight:500; font-family:"Inter"; letter-spacing:0; }
   .card .play{ margin-top:auto; display:inline-flex; align-items:center; gap:7px; font-weight:600; color:var(--acc); font-size:13px; }
 
@@ -93,6 +98,7 @@
   footer{ text-align:center; padding:54px 24px 70px; margin-top:30px; border-top:1px solid var(--line); }
   footer .b{ font-family:"Space Grotesk"; font-weight:700; letter-spacing:1px; font-size:18px; display:inline-flex; align-items:center; gap:8px; }
   footer .b .dot{ width:9px; height:9px; border-radius:50%; background:linear-gradient(135deg,var(--acc),var(--acc2)); }
+  footer .b img{ width:28px; height:28px; border-radius:8px; object-fit:cover; }
   footer p{ color:var(--muted); font-size:13px; margin-top:8px; }
 
   /* reveal */
@@ -122,7 +128,7 @@
 <div class="aurora"></div><div class="grain"></div>
 
 <nav>
-  <div class="brand"><span class="dot"></span> Herostools</div>
+  <div class="brand"><img src="logo.jpg" alt="Emprendimiento Digital"> Emprendimiento Digital</div>
   <div class="links">
     <a href="#avatares">Avatares con IA</a><a href="#n8n">n8n</a><a href="#ghl">GoHighLevel</a><a href="#meta">Meta Ads</a><a href="#ava">Avatares IA</a><a href="#vibe">Vibe Coding</a>
   </div>
@@ -131,6 +137,7 @@
 <header class="hero">
   <canvas id="bg3d"></canvas>
   <div class="inner">
+    <img src="logo.jpg" class="hero-logo" alt="Emprendimiento Digital">
     <span class="badge"><span class="live"></span> Centro de Formación · 25 cursos verificados</span>
     <h1>Domina el <span class="grad">marketing con IA</span><br>de cero a experto</h1>
     <p>n8n, GoHighLevel, Meta Ads y avatares con IA — todo en una sola biblioteca, lista para construir tu agencia.</p>
@@ -158,7 +165,7 @@
 
   <section id="avatares" style="padding-top:28px;">
     <div class="sec-head reveal"><div class="num" style="background:linear-gradient(135deg,var(--cyan),var(--acc2));box-shadow:0 6px 22px rgba(34,211,238,.35);">&#9733;</div><h2>Avatares con IA</h2></div>
-    <p class="sec-sub reveal">Formaci&oacute;n oficial Herostools &mdash; 5 vol&uacute;menes, de tu primer avatar a anuncios que venden.</p>
+    <p class="sec-sub reveal">Formaci&oacute;n oficial Emprendimiento Digital &mdash; 5 vol&uacute;menes, de tu primer avatar a anuncios que venden.</p>
     <div class="grid" id="grid-avatares"></div>
   </section>
 
@@ -216,7 +223,7 @@
 </div>
 
 <footer>
-  <div class="b"><span class="dot"></span> Herostools</div>
+  <div class="b"><img src="logo.jpg" alt=""> Emprendimiento Digital</div>
   <p>Centro de Formación · Junio 2026</p>
 </footer>
 
@@ -233,7 +240,7 @@
 <script>
   const COURSES = {
     "grid-avatares":[
-      {tag:"🟢 Vol. 1 · Fundamentos",t:"Tu primer avatar con IA",k:"v",id:"QdU0rXEUjrE",d:`Primer volumen de la formación de avatares con IA de Herostools. Setup de herramientas, recursos base y los fundamentos para crear tu primer avatar hablante.<br><br><b>Herramientas:</b><br>• Kie — <a href="https://kie.ai" target="_blank" rel="noopener">kie.ai</a><br>• apimart — <a href="https://apimart.ai" target="_blank" rel="noopener">apimart.ai</a><br>• Epidemic Sound — <a href="https://www.epidemicsound.com" target="_blank" rel="noopener">epidemicsound.com</a>`},
+      {tag:"🟢 Vol. 1 · Fundamentos",t:"Tu primer avatar con IA",k:"v",id:"QdU0rXEUjrE",d:`Primer volumen de la formación de avatares con IA de Emprendimiento Digital. Setup de herramientas, recursos base y los fundamentos para crear tu primer avatar hablante.<br><br><b>Herramientas:</b><br>• Kie — <a href="https://kie.ai" target="_blank" rel="noopener">kie.ai</a><br>• apimart — <a href="https://apimart.ai" target="_blank" rel="noopener">apimart.ai</a><br>• Epidemic Sound — <a href="https://www.epidemicsound.com" target="_blank" rel="noopener">epidemicsound.com</a>`},
       {tag:"🟡 Vol. 2 · UGC",t:"UGC que convierte: scripts y producción",k:"v",id:"HyeNHtYSgl4",d:`Cómo producir UGC (una persona a cámara) que vende: referencia visual, guiones en 3 formatos y selección de música.<br><br><b>Herramientas:</b><br>• Kie — <a href="https://kie.ai" target="_blank" rel="noopener">kie.ai</a><br>• apimart — <a href="https://apimart.ai" target="_blank" rel="noopener">apimart.ai</a><br>• Epidemic Sound — <a href="https://www.epidemicsound.com" target="_blank" rel="noopener">epidemicsound.com</a>`},
       {tag:"🟡 Vol. 3 · Image Ads",t:"Anuncios en imagen con IA (+10 formatos)",k:"v",id:"EQMz9sqnDHg",d:`Crea anuncios en imagen desde cero y de forma automatizada. Analiza el producto (público, pain points, ángulos de venta) y genera +10 formatos de image ads:<br><br>• Comparativa<br>• Fake-news<br>• Testimonial<br>• Problema-solución<br>• Before/after<br>• Advertorial<br>• Estilo Reddit<br>• WhatsApp<br>… y más. Todo enfocado a crear creativos en imagen rápido y barato.`},
       {tag:"🔴 Vol. 4 · Avanzado",star:true,t:"UGC avanzado, Podcast y Dualcast",k:"v",id:"V1i-nq4JQL8",d:`Salto de calidad con un modelo de video nuevo, mucho más potente y realista, manteniendo el coste bajo de siempre. Volvemos a ver Podcast y UGC con este modelo nuevo, y además estrenamos un formato nuevo muy potente: <b>Dualcast</b> — dos personas a la vez delante de cámara, hablando e interactuando entre ellas y con la audiencia.<br><br><b>Herramientas:</b><br>• apimart — <a href="https://apimart.ai" target="_blank" rel="noopener">apimart.ai</a>`},
@@ -285,7 +292,7 @@
       const btn = document.createElement("button");
       btn.className = "card reveal";
       btn.style.transitionDelay = (i*60)+"ms";
-      const bg = c.k==="v" ? `style="background-image:url('${thumb(c)}')"` : 'style="background:linear-gradient(135deg,#6d6bff,#a855f7)"';
+      const bg = c.k==="v" ? `style="background-image:url('${thumb(c)}')"` : 'style="background:linear-gradient(135deg,#19b3c7,#2f80c9)"';
       const label = c.k==="v" ? "▶ Ver aquí" : "▶ Ver playlist aquí";
       btn.innerHTML = `
         <div class="thumb" ${bg}><div class="pbtn">${PLAY}</div></div>
@@ -341,7 +348,7 @@
     // Icosaedro wireframe
     const ico = new THREE.Mesh(
       new THREE.IcosahedronGeometry(2.1, 1),
-      new THREE.MeshBasicMaterial({color:0x6d6bff, wireframe:true, transparent:true, opacity:.28})
+      new THREE.MeshBasicMaterial({color:0x19b3c7, wireframe:true, transparent:true, opacity:.28})
     );
     group.add(ico);
 
@@ -350,7 +357,7 @@
     for(let i=0;i<N;i++){ const t=Math.acos(2*Math.random()-1), f=2*Math.PI*Math.random(), r=2.7+Math.random()*1.3;
       pos[i*3]=r*Math.sin(t)*Math.cos(f); pos[i*3+1]=r*Math.sin(t)*Math.sin(f); pos[i*3+2]=r*Math.cos(t); }
     const pg=new THREE.BufferGeometry(); pg.setAttribute("position",new THREE.BufferAttribute(pos,3));
-    const pts=new THREE.Points(pg, new THREE.PointsMaterial({color:0xa855f7, size:.028, transparent:true, opacity:.8}));
+    const pts=new THREE.Points(pg, new THREE.PointsMaterial({color:0x2f80c9, size:.028, transparent:true, opacity:.8}));
     group.add(pts);
 
     function resize(){ const w=innerWidth, h=canvas.clientHeight||innerHeight*0.86; renderer.setSize(w,h,false); cam.aspect=w/h; cam.updateProjectionMatrix(); }
