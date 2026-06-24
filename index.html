@@ -119,7 +119,7 @@
 <nav>
   <div class="brand"><span class="dot"></span> Herostools</div>
   <div class="links">
-    <a href="#n8n">n8n</a><a href="#ghl">GoHighLevel</a><a href="#meta">Meta Ads</a><a href="#ava">Avatares IA</a><a href="#vibe">Vibe Coding</a>
+    <a href="#avatares">Avatares con IA</a><a href="#n8n">n8n</a><a href="#ghl">GoHighLevel</a><a href="#meta">Meta Ads</a><a href="#ava">Avatares IA</a><a href="#vibe">Vibe Coding</a>
   </div>
 </nav>
 
@@ -150,6 +150,12 @@
       <span>Cierras más clientes</span>
     </div>
   </div>
+
+  <section id="avatares" style="padding-top:28px;">
+    <div class="sec-head reveal"><div class="num" style="background:linear-gradient(135deg,var(--cyan),var(--acc2));box-shadow:0 6px 22px rgba(34,211,238,.35);">&#9733;</div><h2>Avatares con IA</h2></div>
+    <p class="sec-sub reveal">Formaci&oacute;n oficial Herostools &mdash; 5 vol&uacute;menes, de tu primer avatar a anuncios que venden.</p>
+    <div class="grid" id="grid-avatares"></div>
+  </section>
 
   <section id="n8n">
     <div class="sec-head reveal"><div class="num">1</div><h2>n8n — Automatización &amp; Agentes IA</h2></div>
@@ -220,6 +226,13 @@
 <!-- ===== Lógica de cursos / modal / reveal / tilt ===== -->
 <script>
   const COURSES = {
+    "grid-avatares":[
+      {tag:"🟢 Vol. 1 · Fundamentos",t:"Tu primer avatar con IA",k:"v",id:"QdU0rXEUjrE"},
+      {tag:"🟡 Vol. 2 · UGC",t:"UGC que convierte: scripts y producción",k:"v",id:"HyeNHtYSgl4"},
+      {tag:"🟡 Vol. 3 · Image Ads",t:"Anuncios en imagen con IA (+10 formatos)",k:"v",id:"EQMz9sqnDHg"},
+      {tag:"🔴 Vol. 4 · Avanzado",star:true,t:"UGC avanzado, Podcast y Dualcast",k:"v",id:"V1i-nq4JQL8"},
+      {tag:"🔴 Vol. 5 · Animado",t:"Formato animado paso a paso",k:"v",id:"NdyWh18tUnw"}
+    ],
     "grid-n8n":[
       {tag:"🟢 Básico · +1h",t:"Curso N8N GRATUITO para Principiantes 2026 — Agentes de IA",k:"v",id:"Xbk6U5jhdkQ"},
       {tag:"🟢 Básico",t:"Curso de N8N desde CERO para Principiantes (2026)",k:"v",id:"6CdgFR0VsVI"},
