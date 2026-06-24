@@ -106,6 +106,30 @@
   .reveal.in{ opacity:1; transform:none; }
   @media(prefers-reduced-motion:reduce){ .reveal{ opacity:1; transform:none; transition:none; } .scrollcue,.badge .live{ animation:none; } }
 
+  /* BIBLIOTECA DE PROMPTS */
+  .ppart{ font-family:"Space Grotesk"; font-weight:700; font-size:15px; color:var(--cyan); letter-spacing:.3px; margin:22px 0 4px; }
+  .ppart:first-child{ margin-top:4px; }
+  .ppart-d{ color:var(--muted); font-size:13px; margin-bottom:12px; }
+  .prompts-wrap{ display:flex; flex-direction:column; gap:12px; }
+  .pgroup{ border:1px solid var(--line); border-radius:14px; background:var(--glass); overflow:hidden; }
+  .pgroup>summary{ cursor:pointer; list-style:none; padding:15px 18px; font-family:"Space Grotesk"; font-weight:600; font-size:15px; display:flex; align-items:center; justify-content:space-between; gap:12px; transition:background .15s; }
+  .pgroup>summary::-webkit-details-marker{ display:none; }
+  .pgroup>summary .chev{ color:var(--acc); transition:transform .25s; font-size:13px; }
+  .pgroup[open]>summary .chev{ transform:rotate(90deg); }
+  .pgroup[open]>summary{ border-bottom:1px solid var(--line); }
+  .pgroup>summary:hover{ background:var(--glass-h); }
+  .pgroup-body{ padding:14px 16px 16px; }
+  .psub-d{ font-size:12.5px; color:var(--muted); margin:0 2px 12px; }
+  .pcards{ display:flex; flex-direction:column; gap:10px; }
+  .pcard{ border:1px solid var(--line); border-radius:11px; background:rgba(255,255,255,.02); padding:11px 13px; }
+  .pcard .pc-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:9px; }
+  .pcard .pc-l{ font-size:13.5px; font-weight:600; color:var(--ink); line-height:1.4; }
+  .pcard .pc-d{ font-size:12px; color:var(--muted); font-weight:400; margin-top:3px; line-height:1.5; }
+  .copy-btn{ flex:0 0 auto; font:inherit; font-size:12px; font-weight:600; color:var(--acc); background:rgba(25,179,199,.1); border:1px solid rgba(25,179,199,.3); border-radius:8px; padding:6px 12px; cursor:pointer; transition:.15s; white-space:nowrap; }
+  .copy-btn:hover{ background:rgba(25,179,199,.2); }
+  .copy-btn.ok{ color:#8fe6cb; border-color:rgba(143,230,203,.45); background:rgba(143,230,203,.14); }
+  .pcard pre{ margin:0; font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace; font-size:12.5px; line-height:1.55; color:#cdd6ea; background:#070f1d; border:1px solid var(--line); border-radius:9px; padding:11px 13px; white-space:pre-wrap; word-break:break-word; }
+
   /* MODAL */
   .modal{ position:fixed; inset:0; background:rgba(4,6,14,.85); backdrop-filter:blur(8px); display:none; z-index:100; padding:24px 20px; overflow-y:auto; }
   .modal.open{ display:flex; animation:fade .25s ease; }
@@ -130,7 +154,7 @@
 <nav>
   <div class="brand"><img src="logo.jpg" alt="Emprendimiento Digital"> Emprendimiento Digital</div>
   <div class="links">
-    <a href="#avatares">Avatares con IA</a><a href="#n8n">n8n</a><a href="#ghl">GoHighLevel</a><a href="#meta">Meta Ads</a><a href="#ava">Avatares IA</a><a href="#vibe">Vibe Coding</a>
+    <a href="#avatares">Avatares con IA</a><a href="#n8n">n8n</a><a href="#ghl">GoHighLevel</a><a href="#meta">Meta Ads</a><a href="#ava">Avatares IA</a><a href="#vibe">Vibe Coding</a><a href="#prompts">Prompts</a>
   </div>
 </nav>
 
@@ -197,6 +221,12 @@
     <div class="sec-head reveal"><div class="num">+</div><h2>Bonus · Vibe Coding</h2></div>
     <p class="sec-sub reveal">Extra: construye landings, herramientas y mini-apps describiéndolas a la IA (sin programar).</p>
     <div class="grid" id="grid-vibe"></div>
+  </section>
+
+  <section id="prompts">
+    <div class="sec-head reveal"><div class="num" style="background:linear-gradient(135deg,var(--acc),var(--cyan));font-size:14px;">&lt;/&gt;</div><h2>Biblioteca de Prompts</h2></div>
+    <p class="sec-sub reveal">Del curso <b style="color:var(--ink)">&laquo;Avatares con IA&raquo;</b> &mdash; las piezas que combinas para montar cualquier v&iacute;deo. Copia, pega y dispara. <span style="color:var(--muted)">(toca cada grupo para abrirlo)</span></p>
+    <div class="prompts-wrap reveal" id="prompts-wrap"></div>
   </section>
 
   <section id="oficial">
@@ -330,6 +360,120 @@
     });
     document.addEventListener("pointerout",e=>{ const card=e.target.closest(".card"); if(card) card.style.transform=""; });
   }
+</script>
+
+<!-- ===== Biblioteca de prompts (curso: Avatares con IA) ===== -->
+<script>
+  const PROMPTS = [
+    { part:"Parte A · Las piezas", intro:"Las piezas que combinas para montar cualquier vídeo. Vuelve aquí cuando lo montes.", groups:[
+      { h:"Cómo se monta el prompt (vídeo)", d:"Estructura base: Cámara + acción (opcional) + guión + voz + acento. Si el vídeo es en inglés, te saltas el acento.", items:[
+        { l:"Ejemplo completo, listo para copiar", p:`(static camera, no movement) realistic arm movements and subtle micro-movements. She smiles and holds up the product, then says: "Llevaba meses buscando algo así y mira, lo encontré."\nVoice: a light, lively female voice — a woman in her mid-20s, bright and clear, warm and friendly, natural conversational pace.\nSpanish with a neutral Peninsular (Madrid) accent, informal and conversational, like a real casual chat in Spain.` }
+      ]},
+      { h:"Idioma y acentos", d:"Añade una de estas líneas al final de cualquier prompt que lleve voz.", items:[
+        { l:"España — peninsular (Madrid)", p:`Spanish with a neutral Peninsular (Madrid) accent, informal and conversational, like a real casual chat in Spain.` },
+        { l:"Argentina — rioplatense (Buenos Aires)", p:`Spanish with an Argentine Rioplatense (Buenos Aires) accent, including the typical "sh" sound for "ll" and "y".` },
+        { l:"Colombia — bogotano", p:`Spanish with a clear, neutral Colombian (Bogotá) accent.` },
+        { l:"México — central (CDMX)", p:`Spanish with a Mexican (central, Mexico City) accent.` },
+        { l:"Latinoamérica — neutro", p:`Spanish with a neutral Latin American accent.` }
+      ]},
+      { h:"La voz", d:"Usa la misma línea Voice: en cada clip del personaje (y genéralos en la misma sesión) para que suene parecido. Combina: género + edad + gravedad + textura + entrega.", items:[
+        { l:"Hombre mayor · ~50", p:`Voice: a deep, warm male voice — a man in his early-to-mid 50s, low and resonant with a slight gravelly texture, calm and unhurried, confident and grounded.` },
+        { l:"Hombre joven · ~25-30", p:`Voice: a bright, energetic male voice — a guy in his mid-to-late 20s, medium-high pitch, clear and relaxed, friendly and upbeat, casual conversational pace.` },
+        { l:"Hombre · mediados de los 20", p:`Voice: a youthful male voice — a guy in his mid-20s, bright and fairly high-pitched, light and energetic, casual relaxed pace.` },
+        { l:"Hombre · mediados de los 30", p:`Voice: a male voice in his mid-30s, medium pitch, a bit fuller and more settled than a twenty-something, calm and confident, friendly but grounded.` },
+        { l:"Mujer mayor · ~50", p:`Voice: a warm, mature female voice — a woman in her early 50s, rich and slightly smoky lower-mid tone, calm and measured pacing, confident and reassuring.` },
+        { l:"Mujer joven · ~25-30", p:`Voice: a light, lively female voice — a woman in her mid-20s, bright and clear with a higher pitch, warm and friendly, natural conversational pace.` },
+        { l:"Mujer · mediados de los 20", p:`Voice: a youthful female voice — a woman in her mid-20s, bright and fairly high-pitched, light and breezy, casual relaxed pace.` },
+        { l:"Mujer · mediados de los 30", p:`Voice: a female voice in her mid-30s, medium pitch, a bit fuller and more settled than a twenty-something, calm and confident, warm but grounded.` }
+      ]},
+      { h:"Las micro-acciones (gestos)", d:"Un gesto natural da realismo. La acción de ANTES de hablar va delante del says:; la de mientras/después va detrás. Ejemplos de gesto (en inglés): adjusts their cap · takes a sip of coffee · fixes their hair · waves hello · laughs · with a surprised look on their face · nods slowly, smiling · points up/left/right.", items:[
+        { l:"Plantilla — antes de hablar", p:`The person [acción], then looks at the camera and says: "[guión]"` },
+        { l:"Plantilla — mientras o después de hablar", p:`The person says: "[guión]" [acción]` },
+        { l:"Skincare — extender crema (evita que quede estática)", d:"Cambia [zona] por: under-eye area / cheeks / forehead / neck…", p:`While speaking, she gradually blends the visible cream into the [zona] until it is smoothly absorbed into the skin. The amount of visible cream continuously decreases throughout the clip, leaving no residue, streaks, or buildup.` }
+      ]},
+      { h:"Los movimientos de cámara", d:"Le dan vida al plano. Los de abajo ya llevan la instrucción anti-corte de plano.", items:[
+        { l:"Plano fijo (el más seguro)", p:`Locked-off static shot, camera completely still on a tripod, no movement at all. Single continuous take, no cuts or scene changes.` },
+        { l:"Zoom lento hacia la cara", p:`Slow, continuous zoom-in toward the subject's face, starting from the very first frame and moving steadily closer, then holding steady on the close-up for the rest of the clip. Single continuous take, no cuts or scene changes.` },
+        { l:"Zoom rápido al empezar a hablar", p:`Fast zoom-in to the subject's face at the very start, settling into a close-up exactly as they begin to speak, then holding steady. Single continuous take, no cuts or scene changes.` },
+        { l:"En mano sutil", p:`Subtle handheld movement, very slight and natural, for a real human feel without distraction. Single continuous take, no cuts or scene changes.` },
+        { l:"Acercamiento sutil (ideal podcast)", p:`Very gentle, almost imperceptible slow push-in on the speaker, from a medium shot to a medium close-up over the whole clip. Single continuous take, no cuts or scene changes.` },
+        { l:"Retroceso que revela el entorno", p:`Slow pull-back from a close-up, revealing the surrounding environment as the subject starts talking, then holding on the wider shot. Single continuous take, no cuts or scene changes.` },
+        { l:"Órbita lenta", p:`Slow arc shot, the camera orbiting around the subject in a smooth half-circle, subject stays centered. Single continuous take, no cuts or scene changes.` },
+        { l:"Seguimiento al caminar", p:`Tracking shot following alongside the subject as they walk and talk, smooth and steady. Single continuous take, no cuts or scene changes.` },
+        { l:"Avanzado · Push-in dramático a los ojos", p:`Slow creeping push-in that tightens into an extreme close-up on the eyes right as the key line is delivered, then holds. Single continuous take, no cuts or scene changes.` },
+        { l:"Avanzado · Contrapicado heroico", p:`Low-angle hero shot looking up at the subject, slow push-in for authority and impact, then holding. Single continuous take, no cuts or scene changes.` },
+        { l:"Avanzado · Profundidad de campo (bokeh)", p:`Shallow depth of field with a creamy bokeh background, slow push-in on the in-focus subject, then holding. Single continuous take, no cuts or scene changes.` },
+        { l:"Avanzado · Cámara lenta", p:`Slow-motion delivery, smooth and cinematic, with a subtle camera drift. Single continuous take, no cuts or scene changes.` },
+        { l:"Línea anti-corte (pégala al final de tu plano)", p:`single continuous take, no cuts or scene changes — the camera holds steady on the framing after the move` }
+      ]},
+      { h:"Los retoques de imagen", d:"Preparan la foto antes de animarla. Son cambios sobre la imagen, sin voz ni guión.", items:[
+        { l:"Cambiar el avatar (otra persona)", p:`make this woman/man a different one, [DESCRIPCIÓN, OUTFIT...]` },
+        { l:"Reemplazar persona (2 archivos de referencia)", p:`replace the guy from the file 1 with the guy from the file 2 wearing the same outfit as in file 2, he is talking to camera gesticulating` },
+        { l:"Cambiar el aspecto de la MISMA persona (base)", d:"Rellena el hueco: a close-up of their face / them with acne / different clothes / a bathroom background…", p:`Using this image as reference, keep the SAME person — same face and identity — and make [describe lo que quieres]. Photorealistic, natural skin texture and lighting.` },
+        { l:"Ejemplo montado (cara de cerca, con acné, otra ropa, baño)", p:`Using this image as reference, keep the SAME person — same face and identity — and make a close-up of their face with visible acne and blemishes, wearing a casual hoodie, in a bathroom. Photorealistic, natural skin texture and lighting.` },
+        { l:"Plano más cercano", p:`A closer view of this same image shows less countertop. He's talking to the camera, you can see his teeth well` },
+        { l:"Cambiar el fondo / escenario", p:`Replace the background behind the person with [describe el sitio: a cozy kitchen / a modern office / a neutral studio with soft lighting], keeping the person, their pose, lighting and framing exactly the same. Natural, realistic integration.` },
+        { l:"Voltear la imagen (para el 2º interlocutor)", p:`Flip the image horizontally` }
+      ]}
+    ]},
+    { part:"Parte B · Formatos", intro:"Cómo montar cada formato combinando las piezas de la Parte A.", groups:[
+      { h:"UGC — 1 persona a cámara", d:"Una persona hablando a cámara, como te recomienda algo un amigo. Añade luego voz, acento y, si quieres, una micro-acción.", items:[
+        { l:"Cámara quieta (lo normal en UGC)", p:`(static camera, no movement) he/she's looking directly at the camera, realistic arm movements, clear influencer tone: "[inserta el guión aquí]"` },
+        { l:"Con micro-movimientos naturales", p:`realistic arm movements, the woman/man says exactly with direct clear energy: "[inserta el guión aquí]"` },
+        { l:"Producto en IMAGEN — sosteniéndolo (2 imágenes)", p:`Using the two reference images (the person and the product), place the product in the person's hand so they are holding it up and showing it to the camera. Keep the person's face and look unchanged, and keep the product's label and packaging exactly the same. Realistic hands and lighting.` },
+        { l:"Producto en IMAGEN — señalándolo (2 imágenes)", p:`Using the two reference images (the person and the product), show the person pointing at the product (held in the other hand or placed next to them) while looking at the camera. Keep the person's face and look unchanged, and keep the product's label and packaging exactly the same. Realistic hands and lighting.` },
+        { l:"Producto en VÍDEO — sostener y enseñar mientras habla", p:`Using the product from the reference image, the person holds the product in one hand and shows it to the camera while talking, looking at the camera with natural, realistic gestures. Keep the product's label and packaging clearly visible and unchanged. Single continuous take, no cuts.` },
+        { l:"Producto en VÍDEO — señalar y mirar mientras habla", p:`Using the product from the reference image, while talking to the camera the person naturally points at the product and glances down at it a couple of times, then back to the camera, with relaxed, realistic gestures. Keep the product's label and packaging clearly visible and unchanged. Single continuous take, no cuts.` },
+        { l:"El producto solo (B-roll para intercalar)", p:`Using the product from the reference image, a clean beauty shot of the product on a [surface: marble counter / wooden table / neutral backdrop], slow gentle camera move, soft natural lighting, the product in sharp focus with its label clearly visible and unchanged. No people. Single continuous take, no cuts.` },
+        { l:"Ejemplo completo de UGC", p:`The person looks directly at the camera with natural gestures and a clear, friendly influencer tone. Slow zoom-in toward their face from the first frame, holding once close. Single continuous take, no cuts. They say: "[tu guión]"\nVoice: a bright, energetic male voice — a guy in his mid-to-late 20s, clear and relaxed, friendly and upbeat.\nSpanish with a neutral Peninsular (Madrid) accent, informal and conversational, like a real casual chat in Spain.` }
+      ]},
+      { h:"Podcast — 2 personas", d:"Dos personas charlando. Generas a cada una por separado (la 2ª con la imagen volteada) y las unes en edición.", items:[
+        { l:"Que mire al interlocutor", p:`She/he is looking to the right/left side of the frame, as if talking to someone sitting next to her/him.` },
+        { l:"Cámara estática, hablando", p:`(static camera, no movement) the person talks naturally with realistic micro-movements and subtle arm gestures, authentic conversational energy. They say: "[inserta el guión aquí]"` },
+        { l:"Que hable solo una persona", p:`Single speaker: only the person from the reference image talks.` }
+      ]},
+      { h:"Dualcast — 2 personas (formato nuevo)", d:"Las dos personas en la misma imagen, interactuando. Parte de una imagen con las dos y di cuál habla. Pega tu guion en [script here].", items:[
+        { l:"Habla la persona de la IZQUIERDA", p:`The person on the LEFT is actively speaking in a natural conversation.\n\n[script here]\n[action here] -> optional\n\nThe person on the RIGHT is only listening, occasionally nodding slightly, reacting naturally and looking at HIM/HER while he/she talks. Casual realistic interaction, subtle facial reactions, authentic conversational energy, no interruption.` },
+        { l:"Habla la persona de la DERECHA", p:`The person on the RIGHT is actively speaking in a natural conversation.\n\n[script here]\n[action here] -> optional\n\nThe person on the LEFT is only listening, occasionally nodding slightly, reacting naturally and looking at HIM/HER while he/she talks. Casual realistic interaction, subtle facial reactions, authentic conversational energy, no interruption.` }
+      ]}
+    ]}
+  ];
+
+  (function(){
+    const wrap=document.getElementById("prompts-wrap"); if(!wrap) return;
+    PROMPTS.forEach(part=>{
+      const ph=document.createElement("div"); ph.className="ppart"; ph.textContent=part.part; wrap.appendChild(ph);
+      if(part.intro){ const pd=document.createElement("div"); pd.className="ppart-d"; pd.textContent=part.intro; wrap.appendChild(pd); }
+      part.groups.forEach(g=>{
+        const det=document.createElement("details"); det.className="pgroup";
+        const sum=document.createElement("summary");
+        const st=document.createElement("span"); st.textContent=g.h;
+        const ch=document.createElement("span"); ch.className="chev"; ch.textContent="▸";
+        sum.appendChild(st); sum.appendChild(ch); det.appendChild(sum);
+        const body=document.createElement("div"); body.className="pgroup-body";
+        if(g.d){ const d=document.createElement("div"); d.className="psub-d"; d.textContent=g.d; body.appendChild(d); }
+        const cards=document.createElement("div"); cards.className="pcards";
+        g.items.forEach(it=>{
+          const card=document.createElement("div"); card.className="pcard";
+          const head=document.createElement("div"); head.className="pc-head";
+          const lab=document.createElement("div");
+          const l=document.createElement("div"); l.className="pc-l"; l.textContent=it.l; lab.appendChild(l);
+          if(it.d){ const dd=document.createElement("div"); dd.className="pc-d"; dd.textContent=it.d; lab.appendChild(dd); }
+          const btn=document.createElement("button"); btn.className="copy-btn"; btn.type="button"; btn.textContent="Copiar";
+          const pre=document.createElement("pre"); pre.textContent=it.p;
+          btn.addEventListener("click",()=>{
+            const done=()=>{ btn.textContent="¡Copiado!"; btn.classList.add("ok"); setTimeout(()=>{ btn.textContent="Copiar"; btn.classList.remove("ok"); },1500); };
+            if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(it.p).then(done).catch(selectText); } else { selectText(); }
+            function selectText(){ const r=document.createRange(); r.selectNodeContents(pre); const s=getSelection(); s.removeAllRanges(); s.addRange(r); try{ document.execCommand("copy"); done(); }catch(e){} }
+          });
+          head.appendChild(lab); head.appendChild(btn);
+          card.appendChild(head); card.appendChild(pre);
+          cards.appendChild(card);
+        });
+        body.appendChild(cards); det.appendChild(body); wrap.appendChild(det);
+      });
+    });
+  })();
 </script>
 
 <!-- ===== Escena 3D del hero (Three.js) ===== -->
