@@ -130,6 +130,23 @@
   .copy-btn.ok{ color:#8fe6cb; border-color:rgba(143,230,203,.45); background:rgba(143,230,203,.14); }
   .pcard pre{ margin:0; font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace; font-size:12.5px; line-height:1.55; color:#cdd6ea; background:#070f1d; border:1px solid var(--line); border-radius:9px; padding:11px 13px; white-space:pre-wrap; word-break:break-word; }
 
+  /* CURSO DESPLEGABLE (GHL) */
+  .course-cover{ width:100%; text-align:left; font:inherit; color:inherit; cursor:pointer; display:flex; align-items:center; gap:18px; padding:22px 24px; border-radius:var(--radius); border:1px solid var(--line); background:linear-gradient(120deg,rgba(25,179,199,.16),rgba(47,128,201,.12)); backdrop-filter:blur(10px); transition:border-color .25s, box-shadow .25s; }
+  .course-cover:hover{ border-color:rgba(25,179,199,.5); box-shadow:0 18px 44px rgba(0,0,0,.4); }
+  .course-cover .cc-ico{ flex:0 0 auto; width:58px; height:58px; border-radius:16px; display:grid; place-items:center; font-family:"Space Grotesk"; font-weight:700; font-size:23px; color:#fff; background:linear-gradient(135deg,var(--acc),var(--acc2)); box-shadow:0 8px 22px rgba(25,179,199,.4); }
+  .course-cover .cc-main{ flex:1; min-width:0; }
+  .course-cover .cc-title{ font-family:"Space Grotesk"; font-weight:700; font-size:19px; }
+  .course-cover .cc-sub{ color:var(--muted); font-size:13.5px; margin-top:3px; }
+  .course-cover .cc-chev{ flex:0 0 auto; color:var(--acc); font-size:15px; transition:transform .3s; }
+  .course-cover.open .cc-chev{ transform:rotate(90deg); }
+  .ghl-modules{ display:none; margin-top:14px; flex-direction:column; gap:12px; }
+  .ghl-modules.open{ display:flex; animation:fade .3s ease; }
+  .lesson-list{ display:flex; flex-direction:column; gap:3px; }
+  .lesson-row{ display:flex; align-items:center; gap:12px; width:100%; text-align:left; font:inherit; color:var(--ink); background:transparent; border:0; border-radius:9px; padding:10px 12px; cursor:pointer; transition:background .15s; }
+  .lesson-row:hover{ background:var(--glass-h); }
+  .lesson-row .lp{ flex:0 0 auto; width:27px; height:27px; border-radius:50%; display:grid; place-items:center; font-size:9px; color:#fff; background:rgba(25,179,199,.85); }
+  .lesson-row .lt{ font-size:13.5px; line-height:1.35; }
+
   /* MODAL */
   .modal{ position:fixed; inset:0; background:rgba(4,6,14,.85); backdrop-filter:blur(8px); display:none; z-index:100; padding:24px 20px; overflow-y:auto; }
   .modal.open{ display:flex; animation:fade .25s ease; }
@@ -154,7 +171,7 @@
 <nav>
   <div class="brand"><img src="logo.jpg" alt="Emprendimiento Digital"> Emprendimiento Digital</div>
   <div class="links">
-    <a href="#avatares">Avatares con IA</a><a href="#n8n">n8n</a><a href="#ghl">GoHighLevel</a><a href="#meta">Meta Ads</a><a href="#ava">Avatares IA</a><a href="#vibe">Vibe Coding</a><a href="#prompts">Prompts</a>
+    <a href="#avatares">Avatares con IA</a><a href="#ghl-curso">Curso GHL</a><a href="#n8n">n8n</a><a href="#ghl">GoHighLevel</a><a href="#meta">Meta Ads</a><a href="#ava">Avatares IA</a><a href="#vibe">Vibe Coding</a><a href="#prompts">Prompts</a>
   </div>
 </nav>
 
@@ -191,6 +208,20 @@
     <div class="sec-head reveal"><div class="num" style="background:linear-gradient(135deg,var(--cyan),var(--acc2));box-shadow:0 6px 22px rgba(34,211,238,.35);">&#9733;</div><h2>Avatares con IA</h2></div>
     <p class="sec-sub reveal">Formaci&oacute;n oficial Emprendimiento Digital &mdash; 5 vol&uacute;menes, de tu primer avatar a anuncios que venden.</p>
     <div class="grid" id="grid-avatares"></div>
+  </section>
+
+  <section id="ghl-curso" style="padding-top:14px;">
+    <div class="sec-head reveal"><div class="num" style="background:linear-gradient(135deg,var(--acc2),var(--acc));">G</div><h2>GoHighLevel</h2></div>
+    <p class="sec-sub reveal">Formaci&oacute;n oficial Emprendimiento Digital &mdash; curso completo de GoHighLevel: <b style="color:var(--ink)">12 m&oacute;dulos &middot; 53 lecciones</b>. Haz clic para ver los m&oacute;dulos.</p>
+    <button class="course-cover reveal" id="ghl-cover" type="button">
+      <span class="cc-ico">G</span>
+      <span class="cc-main">
+        <span class="cc-title">Curso completo de GoHighLevel</span>
+        <span class="cc-sub">12 m&oacute;dulos &middot; 53 lecciones &mdash; de cero a experto en el CRM</span>
+      </span>
+      <span class="cc-chev">&#9654;</span>
+    </button>
+    <div class="ghl-modules" id="ghl-modules"></div>
   </section>
 
   <section id="n8n">
@@ -261,7 +292,7 @@
 <div class="modal" id="modal" aria-hidden="true">
   <div class="modal-box">
     <div class="modal-bar"><h4 id="modal-title"></h4><button class="modal-close" id="modal-close" aria-label="Cerrar">×</button></div>
-    <div class="modal-frame"><iframe id="modal-iframe" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+    <div class="modal-frame"><iframe id="modal-iframe" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><video id="modal-video" controls playsinline preload="metadata" style="display:none;position:absolute;inset:0;width:100%;height:100%;background:#000;"></video></div>
     <p class="modal-desc" id="modal-desc"></p>
   </div>
 </div>
@@ -337,11 +368,16 @@
   });
 
   // Modal
-  const modal=document.getElementById("modal"), frame=document.getElementById("modal-iframe"), mt=document.getElementById("modal-title"), md=document.getElementById("modal-desc");
-  function openModal(c){ mt.textContent=c.t; frame.src=embed(c);
+  const modal=document.getElementById("modal"), frame=document.getElementById("modal-iframe"), mt=document.getElementById("modal-title"), md=document.getElementById("modal-desc"), mvid=document.getElementById("modal-video");
+  function openShell(title){ mt.textContent=title; modal.classList.add("open"); modal.setAttribute("aria-hidden","false"); document.body.style.overflow="hidden"; }
+  function openModal(c){ mvid.pause(); mvid.removeAttribute("src"); mvid.style.display="none"; frame.style.display="";
+    frame.src=embed(c);
     if(c.d){ md.innerHTML=c.d; md.classList.add("show"); } else { md.innerHTML=""; md.classList.remove("show"); }
-    modal.classList.add("open"); modal.setAttribute("aria-hidden","false"); document.body.style.overflow="hidden"; }
-  function closeModal(){ modal.classList.remove("open"); modal.setAttribute("aria-hidden","true"); frame.src=""; md.innerHTML=""; md.classList.remove("show"); document.body.style.overflow=""; }
+    openShell(c.t); }
+  function openR2(title,url,desc){ frame.src=""; frame.style.display="none"; mvid.style.display="block"; mvid.src=url; mvid.play().catch(()=>{});
+    if(desc){ md.innerHTML=desc; md.classList.add("show"); } else { md.innerHTML=""; md.classList.remove("show"); }
+    openShell(title); }
+  function closeModal(){ modal.classList.remove("open"); modal.setAttribute("aria-hidden","true"); frame.src=""; mvid.pause(); mvid.removeAttribute("src"); mvid.load(); mvid.style.display="none"; frame.style.display=""; md.innerHTML=""; md.classList.remove("show"); document.body.style.overflow=""; }
   document.getElementById("modal-close").addEventListener("click",closeModal);
   modal.addEventListener("click",e=>{ if(e.target===modal) closeModal(); });
   document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeModal(); });
@@ -360,6 +396,35 @@
     });
     document.addEventListener("pointerout",e=>{ const card=e.target.closest(".card"); if(card) card.style.transform=""; });
   }
+</script>
+
+<!-- ===== Curso GoHighLevel (acordeón, video desde Cloudflare R2) ===== -->
+<script>
+  const GHL_COURSE = [{"num": "01", "title": "Inicio aquí", "lessons": [{"t": "Bienvenida", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/01-inicio-aqui/01-bienvenida.mp4"}, {"t": "Primero lo primero", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/01-inicio-aqui/02-primero-lo-primero.mp4"}, {"t": "Exploremos GoHighLevel", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/01-inicio-aqui/03-exploremos-gohighlevel.mp4"}]}, {"num": "02", "title": "Cimientos de negocios", "lessons": [{"t": "Custom Fields (campos personalizados)", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/02-cimientos-de-negocios/01-custom-fields-campos-personalizados.mp4"}, {"t": "Custom Values (valores personalizados)", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/02-cimientos-de-negocios/02-custom-values-valores-personalizados.mp4"}, {"t": "Crear e importar contactos", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/02-cimientos-de-negocios/03-crear-e-importar-contactos.mp4"}, {"t": "Smart Lists", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/02-cimientos-de-negocios/04-smart-lists.mp4"}, {"t": "Formularios", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/02-cimientos-de-negocios/05-formularios.mp4"}, {"t": "Surveys (Encuestas)", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/02-cimientos-de-negocios/06-surveys-encuestas.mp4"}, {"t": "Dar de alta usuarios y permisos", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/02-cimientos-de-negocios/07-dar-de-alta-usuarios-y-permisos.mp4"}]}, {"num": "03", "title": "Comunicación (WhatsApp, IG, FB, bots)", "lessons": [{"t": "Integra canales - Instagram y Facebook", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/03-comunicacion-whatsapp-ig-fb-bots/01-integra-canales-instagram-y-facebook.mp4"}, {"t": "Integra WhatsApp (Introduccion)", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/03-comunicacion-whatsapp-ig-fb-bots/02-integra-whatsapp-introduccion.mp4"}, {"t": "Conectar WhatsApp a GHL (AppLevel)", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/03-comunicacion-whatsapp-ig-fb-bots/03-conectar-whatsapp-a-ghl-applevel.mp4"}, {"t": "Snippets (plantillas de mensajes y correos)", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/03-comunicacion-whatsapp-ig-fb-bots/05-snippets-plantillas-de-mensajes-y-correos.mp4"}, {"t": "Plantillas WhatsApp API (aprobacion META)", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/03-comunicacion-whatsapp-ig-fb-bots/06-plantillas-whatsapp-api-aprobacion-meta.mp4"}, {"t": "Asignacion de numeros a usuarios (AppLevel)", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/03-comunicacion-whatsapp-ig-fb-bots/07-asignacion-de-numeros-a-usuarios-applevel.mp4"}, {"t": "Asignar contactos al equipo equitativamente", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/03-comunicacion-whatsapp-ig-fb-bots/08-asignar-contactos-al-equipo-equitativamente.mp4"}, {"t": "Automatizaciones - envio de WhatsApp y Emails", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/03-comunicacion-whatsapp-ig-fb-bots/09-automatizaciones-envio-de-whatsapp-y-emails.mp4"}, {"t": "Crea un bot sin IA", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/03-comunicacion-whatsapp-ig-fb-bots/10-crea-un-bot-sin-ia.mp4"}, {"t": "Envio masivo de WhatsApp QR (AppLevel) - evitar el baneo", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/03-comunicacion-whatsapp-ig-fb-bots/11-envio-masivo-de-whatsapp-qr-applevel-evitar-el-baneo.mp4"}, {"t": "GHL en tu celular (App Lead Connector)", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/03-comunicacion-whatsapp-ig-fb-bots/12-ghl-en-tu-celular-app-lead-connector.mp4"}]}, {"num": "04", "title": "Lead Scoring (Pipelines y Oportunidades)", "lessons": [{"t": "Crear Pipelines y Oportunidades", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/04-lead-scoring-pipelines-y-oportunidades/01-crear-pipelines-y-oportunidades.mp4"}, {"t": "Automatizaciones - movimientos del pipeline", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/04-lead-scoring-pipelines-y-oportunidades/02-automatizaciones-movimientos-del-pipeline.mp4"}, {"t": "Trigger Links - crear y utilizar", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/04-lead-scoring-pipelines-y-oportunidades/03-trigger-links-crear-y-utilizar.mp4"}, {"t": "Optimiza la calificacion de leads (Lead Scoring)", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/04-lead-scoring-pipelines-y-oportunidades/04-optimiza-la-calificacion-de-leads-lead-scoring.mp4"}]}, {"num": "05", "title": "Agenda y Calendarios", "lessons": [{"t": "Integrar calendarios (Zoom y Google Meet) - Parte 1", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/05-agenda-y-calendarios/01-integrar-calendarios-zoom-y-google-meet-parte-1.mp4"}, {"t": "Creacion de calendarios - agendar citas", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/05-agenda-y-calendarios/02-creacion-de-calendarios-agendar-citas.mp4"}, {"t": "Integrar calendarios (Zoom y Google Meet) - Parte 2", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/05-agenda-y-calendarios/03-integrar-calendarios-zoom-y-google-meet-parte-2.mp4"}]}, {"num": "06", "title": "Facturación (Pagos, Productos, Checkout)", "lessons": [{"t": "Seccion de pagos - funcionalidades", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/06-facturacion-pagos-productos-checkout/01-seccion-de-pagos-funcionalidades.mp4"}, {"t": "Stripe y PayPal, Productos, Checkout, Cupones - Parte 1", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/06-facturacion-pagos-productos-checkout/02-stripe-y-paypal-productos-checkout-cupones-parte-1.mp4"}, {"t": "Stripe y PayPal, Productos, Checkout, Cupones - Parte 2", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/06-facturacion-pagos-productos-checkout/03-stripe-y-paypal-productos-checkout-cupones-parte-2.mp4"}, {"t": "Order Bumps - aumenta el ticket de venta", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/06-facturacion-pagos-productos-checkout/04-order-bumps-aumenta-el-ticket-de-venta.mp4"}, {"t": "Automatizacion de recordatorios de pago", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/06-facturacion-pagos-productos-checkout/05-automatizacion-de-recordatorios-de-pago.mp4"}]}, {"num": "07", "title": "Sitios web y Funnels", "lessons": [{"t": "Funnels y Websites", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/07-sitios-web-y-funnels/01-funnels-y-websites.mp4"}, {"t": "Conectar dominios para sitios web", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/07-sitios-web-y-funnels/02-conectar-dominios-para-sitios-web.mp4"}, {"t": "Conectar dominios para correos", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/07-sitios-web-y-funnels/03-conectar-dominios-para-correos.mp4"}, {"t": "Codigos QR", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/07-sitios-web-y-funnels/04-codigos-qr.mp4"}, {"t": "Chat Widget para tu pagina web", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/07-sitios-web-y-funnels/05-chat-widget-para-tu-pagina-web.mp4"}, {"t": "Crear tu tienda online", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/07-sitios-web-y-funnels/06-crear-tu-tienda-online.mp4"}]}, {"num": "08", "title": "Reportes y gestión de equipo", "lessons": [{"t": "Reportes de resultados y gestion de equipo (intro)", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/08-reportes-y-gestion-de-equipo/01-reportes-de-resultados-y-gestion-de-equipo-intro.mp4"}, {"t": "Dashboard personalizado - Parte 1", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/08-reportes-y-gestion-de-equipo/02-dashboard-personalizado-parte-1.mp4"}, {"t": "Dashboard personalizado - Parte 2", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/08-reportes-y-gestion-de-equipo/03-dashboard-personalizado-parte-2.mp4"}, {"t": "Exporta informacion a Google Sheets", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/08-reportes-y-gestion-de-equipo/04-exporta-informacion-a-google-sheets.mp4"}]}, {"num": "09", "title": "Campañas personalizadas", "lessons": [{"t": "Campanas de email", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/09-campanas-personalizadas/01-campanas-de-email.mp4"}, {"t": "Campanas de WhatsApp", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/09-campanas-personalizadas/02-campanas-de-whatsapp.mp4"}, {"t": "Campanas de cumpleanos, recordatorios y reactivacion", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/09-campanas-personalizadas/03-campanas-de-cumpleanos-recordatorios-y-reactivacion.mp4"}]}, {"num": "10", "title": "Social Planner", "lessons": [{"t": "Automatizacion para responder comentarios IG y FB", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/10-social-planner/01-automatizacion-para-responder-comentarios-ig-y-fb.mp4"}, {"t": "Conecta la API de Conversiones de META a GHL", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/10-social-planner/02-conecta-la-api-de-conversiones-de-meta-a-ghl.mp4"}]}, {"num": "11", "title": "Onboarding de clientes", "lessons": [{"t": "Documentos y Contratos", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/11-onboarding-de-clientes/01-documentos-y-contratos.mp4"}]}, {"num": "12", "title": "Área de capacitación (Cursos y Comunidades)", "lessons": [{"t": "Creacion de cursos", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/12-area-de-capacitacion-cursos-y-comunidades/01-creacion-de-cursos.mp4"}, {"t": "Crear comunidades", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/12-area-de-capacitacion-cursos-y-comunidades/02-crear-comunidades.mp4"}, {"t": "Configuracion del portal de clientes", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/12-area-de-capacitacion-cursos-y-comunidades/03-configuracion-del-portal-de-clientes.mp4"}, {"t": "Automatizaciones - seguimiento de alumnos", "url": "https://pub-f7e127da2a724d1d9303d58ea2f5edfe.r2.dev/ghl/12-area-de-capacitacion-cursos-y-comunidades/04-automatizaciones-seguimiento-de-alumnos.mp4"}]}];
+
+  (function(){
+    const cover=document.getElementById("ghl-cover"), wrap=document.getElementById("ghl-modules");
+    if(!cover||!wrap) return;
+    GHL_COURSE.forEach(mod=>{
+      const det=document.createElement("details"); det.className="pgroup";
+      const sum=document.createElement("summary");
+      const st=document.createElement("span"); st.textContent="Módulo "+mod.num+" · "+mod.title+"  ("+mod.lessons.length+")";
+      const ch=document.createElement("span"); ch.className="chev"; ch.textContent="▸";
+      sum.appendChild(st); sum.appendChild(ch); det.appendChild(sum);
+      const body=document.createElement("div"); body.className="pgroup-body";
+      const list=document.createElement("div"); list.className="lesson-list";
+      mod.lessons.forEach((les,i)=>{
+        const row=document.createElement("button"); row.className="lesson-row"; row.type="button";
+        const lp=document.createElement("span"); lp.className="lp"; lp.textContent="▶";
+        const lt=document.createElement("span"); lt.className="lt"; lt.textContent=(i+1)+". "+les.t;
+        row.appendChild(lp); row.appendChild(lt);
+        row.addEventListener("click",()=>openR2(mod.title+" · "+les.t, les.url));
+        list.appendChild(row);
+      });
+      body.appendChild(list); det.appendChild(body); wrap.appendChild(det);
+    });
+    cover.addEventListener("click",()=>{ const op=wrap.classList.toggle("open"); cover.classList.toggle("open",op); });
+  })();
 </script>
 
 <!-- ===== Biblioteca de prompts (curso: Avatares con IA) ===== -->
