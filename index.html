@@ -131,14 +131,17 @@
   .pcard pre{ margin:0; font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace; font-size:12.5px; line-height:1.55; color:#cdd6ea; background:#070f1d; border:1px solid var(--line); border-radius:9px; padding:11px 13px; white-space:pre-wrap; word-break:break-word; }
 
   /* CURSO DESPLEGABLE (GHL) */
-  .course-cover{ width:100%; text-align:left; font:inherit; color:inherit; cursor:pointer; display:flex; align-items:center; gap:18px; padding:22px 24px; border-radius:var(--radius); border:1px solid var(--line); background:linear-gradient(120deg,rgba(25,179,199,.16),rgba(47,128,201,.12)); backdrop-filter:blur(10px); transition:border-color .25s, box-shadow .25s; }
-  .course-cover:hover{ border-color:rgba(25,179,199,.5); box-shadow:0 18px 44px rgba(0,0,0,.4); }
-  .course-cover .cc-ico{ flex:0 0 auto; width:58px; height:58px; border-radius:16px; display:grid; place-items:center; font-family:"Space Grotesk"; font-weight:700; font-size:23px; color:#fff; background:linear-gradient(135deg,var(--acc),var(--acc2)); box-shadow:0 8px 22px rgba(25,179,199,.4); }
-  .course-cover .cc-main{ flex:1; min-width:0; }
-  .course-cover .cc-title{ font-family:"Space Grotesk"; font-weight:700; font-size:19px; }
-  .course-cover .cc-sub{ color:var(--muted); font-size:13.5px; margin-top:3px; }
-  .course-cover .cc-chev{ flex:0 0 auto; color:var(--acc); font-size:15px; transition:transform .3s; }
-  .course-cover.open .cc-chev{ transform:rotate(90deg); }
+  .course-cover{ position:relative; width:100%; display:block; text-align:left; font:inherit; color:inherit; cursor:pointer; border-radius:var(--radius); border:1px solid var(--line); overflow:hidden; background:#0a1a30 center/cover no-repeat; transition:border-color .25s, box-shadow .25s; }
+  .course-cover:hover{ border-color:rgba(25,179,199,.55); box-shadow:0 20px 50px rgba(0,0,0,.5); }
+  .course-cover::after{ content:""; position:absolute; inset:0; background:linear-gradient(100deg, rgba(6,16,31,.96) 0%, rgba(6,16,31,.85) 40%, rgba(10,26,48,.45) 100%); }
+  .cc-inner{ position:relative; z-index:1; padding:26px 28px; display:flex; flex-direction:column; gap:7px; min-height:188px; justify-content:center; }
+  .cc-kicker{ display:inline-flex; align-items:center; gap:9px; font-size:11.5px; font-weight:600; letter-spacing:.6px; text-transform:uppercase; color:var(--cyan); }
+  .cc-kicker .cc-ico{ width:30px; height:30px; border-radius:9px; display:grid; place-items:center; font-family:"Space Grotesk"; font-weight:700; font-size:13px; color:#fff; background:linear-gradient(135deg,var(--acc),var(--acc2)); }
+  .cc-title{ font-family:"Space Grotesk"; font-weight:700; font-size:clamp(21px,3vw,29px); color:#fff; line-height:1.1; }
+  .cc-sub{ color:#cdd6ea; font-size:14px; max-width:560px; }
+  .cc-cta{ margin-top:9px; align-self:flex-start; display:inline-flex; align-items:center; gap:9px; font-size:13.5px; font-weight:600; color:#fff; background:rgba(25,179,199,.92); border:1px solid rgba(25,179,199,.5); padding:9px 17px; border-radius:30px; box-shadow:0 6px 18px rgba(25,179,199,.35); }
+  .cc-cta .cc-chev{ transition:transform .3s; font-size:11px; }
+  .course-cover.open .cc-cta .cc-chev{ transform:rotate(90deg); }
   .ghl-modules{ display:none; margin-top:14px; flex-direction:column; gap:12px; }
   .ghl-modules.open{ display:flex; animation:fade .3s ease; }
   .lesson-list{ display:flex; flex-direction:column; gap:3px; }
@@ -171,7 +174,7 @@
 <nav>
   <div class="brand"><img src="logo.jpg" alt="Emprendimiento Digital"> Emprendimiento Digital</div>
   <div class="links">
-    <a href="#avatares">Avatares con IA</a><a href="#ghl-curso">Curso GHL</a><a href="#n8n">n8n</a><a href="#ghl">GoHighLevel</a><a href="#meta">Meta Ads</a><a href="#ava">Avatares IA</a><a href="#vibe">Vibe Coding</a><a href="#prompts">Prompts</a>
+    <a href="#avatares">Avatares con IA</a><a href="#ghl-curso">Curso GHL</a><a href="#n8n-curso">Curso n8n</a><a href="#n8n">n8n</a><a href="#ghl">GoHighLevel</a><a href="#meta">Meta Ads</a><a href="#ava">Avatares IA</a><a href="#vibe">Vibe Coding</a><a href="#prompts">Prompts</a>
   </div>
 </nav>
 
@@ -210,18 +213,28 @@
     <div class="grid" id="grid-avatares"></div>
   </section>
 
-  <section id="ghl-curso" style="padding-top:14px;">
-    <div class="sec-head reveal"><div class="num" style="background:linear-gradient(135deg,var(--acc2),var(--acc));">G</div><h2>GoHighLevel</h2></div>
-    <p class="sec-sub reveal">Formaci&oacute;n oficial Emprendimiento Digital &mdash; curso completo de GoHighLevel: <b style="color:var(--ink)">12 m&oacute;dulos &middot; 53 lecciones</b>. Haz clic para ver los m&oacute;dulos.</p>
-    <button class="course-cover reveal" id="ghl-cover" type="button">
-      <span class="cc-ico">G</span>
-      <span class="cc-main">
+  <section id="ghl-curso" style="padding-top:30px;">
+    <button class="course-cover reveal" id="ghl-cover" type="button" style="background-image:url('ghl-cover.jpg')">
+      <span class="cc-inner">
+        <span class="cc-kicker"><span class="cc-ico">G</span> Curso &middot; GoHighLevel</span>
         <span class="cc-title">Curso completo de GoHighLevel</span>
-        <span class="cc-sub">12 m&oacute;dulos &middot; 53 lecciones &mdash; de cero a experto en el CRM</span>
+        <span class="cc-sub">CRM &amp; Automatizaci&oacute;n &mdash; 12 m&oacute;dulos &middot; 53 lecciones, de cero a experto.</span>
+        <span class="cc-cta">Ver m&oacute;dulos <span class="cc-chev">&#9654;</span></span>
       </span>
-      <span class="cc-chev">&#9654;</span>
     </button>
     <div class="ghl-modules" id="ghl-modules"></div>
+  </section>
+
+  <section id="n8n-curso" style="padding-top:18px;">
+    <button class="course-cover reveal" id="n8n-cover" type="button" style="background-image:url('n8n-cover.jpg')">
+      <span class="cc-inner">
+        <span class="cc-kicker"><span class="cc-ico" style="font-size:11px;">n8n</span> Curso &middot; n8n + GoHighLevel</span>
+        <span class="cc-title">Agentes de IA en n8n para GoHighLevel</span>
+        <span class="cc-sub">5 m&oacute;dulos &middot; 29 lecciones &mdash; agentes de texto, audio e im&aacute;genes, RAG y m&aacute;s.</span>
+        <span class="cc-cta">Ver m&oacute;dulos <span class="cc-chev">&#9654;</span></span>
+      </span>
+    </button>
+    <div class="ghl-modules" id="n8n-modules"></div>
   </section>
 
   <section id="n8n">
@@ -406,6 +419,35 @@
     const cover=document.getElementById("ghl-cover"), wrap=document.getElementById("ghl-modules");
     if(!cover||!wrap) return;
     GHL_COURSE.forEach(mod=>{
+      const det=document.createElement("details"); det.className="pgroup";
+      const sum=document.createElement("summary");
+      const st=document.createElement("span"); st.textContent="Módulo "+mod.num+" · "+mod.title+"  ("+mod.lessons.length+")";
+      const ch=document.createElement("span"); ch.className="chev"; ch.textContent="▸";
+      sum.appendChild(st); sum.appendChild(ch); det.appendChild(sum);
+      const body=document.createElement("div"); body.className="pgroup-body";
+      const list=document.createElement("div"); list.className="lesson-list";
+      mod.lessons.forEach((les,i)=>{
+        const row=document.createElement("button"); row.className="lesson-row"; row.type="button";
+        const lp=document.createElement("span"); lp.className="lp"; lp.textContent="▶";
+        const lt=document.createElement("span"); lt.className="lt"; lt.textContent=(i+1)+". "+les.t;
+        row.appendChild(lp); row.appendChild(lt);
+        row.addEventListener("click",()=>openR2(mod.title+" · "+les.t, les.url));
+        list.appendChild(row);
+      });
+      body.appendChild(list); det.appendChild(body); wrap.appendChild(det);
+    });
+    cover.addEventListener("click",()=>{ const op=wrap.classList.toggle("open"); cover.classList.toggle("open",op); });
+  })();
+</script>
+
+<!-- ===== Curso n8n + GHL (acordeón, video desde Cloudflare R2) ===== -->
+<script>
+  const N8N_COURSE = [{"num": "01", "title": "Inicia aquí (instalación e interfaz)", "lessons": [{"t": "Aviso - Formacion del Agente", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/01-inicia-aqui-instalacion-e-interfaz/01-aviso-formacion-del-agente.mp4"}, {"t": "Instalacion de n8n - Opciones", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/01-inicia-aqui-instalacion-e-interfaz/02-instalacion-de-n8n-opciones.mp4"}, {"t": "Instala n8n Cloud", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/01-inicia-aqui-instalacion-e-interfaz/03-instala-n8n-cloud.mp4"}, {"t": "Instala n8n en servidor propio (Hostinger)", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/01-inicia-aqui-instalacion-e-interfaz/04-instala-n8n-en-servidor-propio-hostinger.mp4"}, {"t": "Conecta tu dominio a n8n (mejora la comunicacion con GHL)", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/01-inicia-aqui-instalacion-e-interfaz/05-conecta-tu-dominio-a-n8n-mejora-la-comunicacion-con-ghl.mp4"}, {"t": "Introduccion a la interfaz y creacion de workflows", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/01-inicia-aqui-instalacion-e-interfaz/06-introduccion-a-la-interfaz-y-creacion-de-workflows.mp4"}, {"t": "Conoce los nodos de n8n", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/01-inicia-aqui-instalacion-e-interfaz/07-conoce-los-nodos-de-n8n.mp4"}, {"t": "Como mantener actualizado tu n8n", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/01-inicia-aqui-instalacion-e-interfaz/08-como-mantener-actualizado-tu-n8n.mp4"}]}, {"num": "02", "title": "Conexión de credenciales", "lessons": [{"t": "Conecta la credencial de OpenAI", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/02-conexion-de-credenciales/01-conecta-la-credencial-de-openai.mp4"}, {"t": "Conecta las credenciales de Google (Docs, Sheets, Gmail, Drive, Tasks)", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/02-conexion-de-credenciales/02-conecta-las-credenciales-de-google-docs-sheets-gmail-drive-tasks.mp4"}, {"t": "Conecta la credencial de HighLevel", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/02-conexion-de-credenciales/03-conecta-la-credencial-de-highlevel.mp4"}, {"t": "Crea tu cuenta en Supabase y conectala a n8n", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/02-conexion-de-credenciales/04-crea-tu-cuenta-en-supabase-y-conectala-a-n8n.mp4"}, {"t": "Instala y conecta Postgres", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/02-conexion-de-credenciales/05-instala-y-conecta-postgres.mp4"}, {"t": "Conecta la credencial de Telegram", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/02-conexion-de-credenciales/06-conecta-la-credencial-de-telegram.mp4"}]}, {"num": "03", "title": "Agente de texto (recibir y enviar)", "lessons": [{"t": "El agente recibe mensajes de texto de GHL", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/03-agente-de-texto-recibir-y-enviar/01-el-agente-recibe-mensajes-de-texto-de-ghl.mp4"}, {"t": "Responder mensajes con la API v2.0 de GHL", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/03-agente-de-texto-recibir-y-enviar/02-responder-mensajes-con-la-api-v2-0-de-ghl.mp4"}, {"t": "Contestar en todas las plataformas (WA, FB, IG, Chat, SMS)", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/03-agente-de-texto-recibir-y-enviar/03-contestar-en-todas-las-plataformas-wa-fb-ig-chat-sms.mp4"}, {"t": "Entrenamiento del agente y respuesta mas humana", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/03-agente-de-texto-recibir-y-enviar/04-entrenamiento-del-agente-y-respuesta-mas-humana.mp4"}]}, {"num": "04", "title": "Agente de audio e imágenes", "lessons": [{"t": "Recibe audios e imagenes - Parte 1 (Coexistencia)", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/04-agente-de-audio-e-imagenes/01-recibe-audios-e-imagenes-parte-1-coexistencia.mp4"}, {"t": "Interpreta audios - Parte 2 (WhatsApp AppLevel)", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/04-agente-de-audio-e-imagenes/02-interpreta-audios-parte-2-whatsapp-applevel.mp4"}, {"t": "Interpreta imagenes - Parte 3 (WhatsApp AppLevel)", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/04-agente-de-audio-e-imagenes/03-interpreta-imagenes-parte-3-whatsapp-applevel.mp4"}, {"t": "Enviar imagenes o videos", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/04-agente-de-audio-e-imagenes/04-enviar-imagenes-o-videos.mp4"}]}, {"num": "06", "title": "Más acciones (RAG, buffer, filtros)", "lessons": [{"t": "Crear filtro para activar el agente", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/06-mas-acciones-rag-buffer-filtros/01-crear-filtro-para-activar-el-agente.mp4"}, {"t": "RAG - Alimentar base de datos vectorial (Supabase)", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/06-mas-acciones-rag-buffer-filtros/02-rag-alimentar-base-de-datos-vectorial-supabase.mp4"}, {"t": "RAG - Actualizacion - alimentar base vectorial (Supabase)", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/06-mas-acciones-rag-buffer-filtros/03-rag-actualizacion-alimentar-base-vectorial-supabase.mp4"}, {"t": "RAG - Conectar base de conocimiento al agente", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/06-mas-acciones-rag-buffer-filtros/04-rag-conectar-base-de-conocimiento-al-agente.mp4"}, {"t": "Buffer de mensajes", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/06-mas-acciones-rag-buffer-filtros/05-buffer-de-mensajes.mp4"}, {"t": "Corregir error comun en HTTP Request (.item)", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/06-mas-acciones-rag-buffer-filtros/06-corregir-error-comun-en-http-request-item.mp4"}, {"t": "Evita la pausa en Supabase", "url": "https://pub-e854a7a8a0c64dcfa0ae8025541de453.r2.dev/n8n/06-mas-acciones-rag-buffer-filtros/07-evita-la-pausa-en-supabase.mp4"}]}];
+
+  (function(){
+    const cover=document.getElementById("n8n-cover"), wrap=document.getElementById("n8n-modules");
+    if(!cover||!wrap) return;
+    N8N_COURSE.forEach(mod=>{
       const det=document.createElement("details"); det.className="pgroup";
       const sum=document.createElement("summary");
       const st=document.createElement("span"); st.textContent="Módulo "+mod.num+" · "+mod.title+"  ("+mod.lessons.length+")";
